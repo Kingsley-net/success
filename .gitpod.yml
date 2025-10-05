@@ -8,10 +8,15 @@ tasks:
       rm Anaconda3-2024.02-1-Linux-x86_64.sh
       # Initialize conda for bash
       $HOME/anaconda3/bin/conda init bash
-      # Update conda
-      $HOME/anaconda3/bin/conda update -n base -c defaults conda -y
-    command: |
-      # Activate conda for this session
+      # Create virtual environment
       source $HOME/anaconda3/bin/activate
-      conda activate base
-      echo "Anaconda is ready! Type 'conda --version' to verify."
+      conda create -n myenv python=3.11 -y
+      conda activate myenv
+      # Install common packages
+      conda install numpy pandas matplotlib jupyter scikit-learn -y
+    command: |
+      # Activate the virtual environment automatically
+      source $HOME/anaconda3/bin/activate
+      conda activate myenv
+      echo "✅ Anaconda virtual environment 'myenv' is ready!"
+      echo "Python version: $(python --version)"
